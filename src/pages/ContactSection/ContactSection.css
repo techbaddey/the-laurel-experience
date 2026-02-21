@@ -1,0 +1,169 @@
+.contact-page {
+  background: var(--bg-main);
+  color: var(--text-primary);
+}
+
+/* ================= HERO ================= */
+.contact-hero {
+  padding: 7rem 1.5rem 4rem;
+  text-align: center;
+}
+
+.contact-hero h1 {
+  font-family: var(--font-secondary);
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+}
+
+.contact-hero p {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+/* ================= INFO ================= */
+.contact-info {
+  padding: 0rem 1.5rem;
+}
+
+.info-grid {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.info-grid a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-size: 0.95rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-grid a:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.25);
+}
+
+.info-grid svg {
+  color: var(--gold);
+}
+
+/* ================= FORM ================= */
+.contact-form-section {
+  padding: 4rem 1.5rem 6rem;
+  display: flex;
+  justify-content: center;
+}
+
+.laurel-form {
+  width: 100%;
+  max-width: 560px;
+  background: white;
+  padding: 3rem;
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+}
+
+.form-intro {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: var(--text-muted);
+}
+
+/* Floating Labels */
+.form-group {
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  background: white;
+  padding: 0 0.3rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.form-group.active label {
+  top: -0.4rem;
+  font-size: 0.75rem;
+  color: var(--gold);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+}
+
+.textarea label {
+  top: 1rem;
+}
+
+.textarea.active label {
+  top: -0.4rem;
+}
+
+/* Submit */
+.submit-btn {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: white;
+  border: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
+}
+
+/* Success */
+.success-message {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--gold);
+  justify-content: center;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+  .contact-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .laurel-form {
+    padding: 2.2rem;
+  }
+}

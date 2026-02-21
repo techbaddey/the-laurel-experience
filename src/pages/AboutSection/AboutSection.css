@@ -1,0 +1,167 @@
+/* ================= HERO ================= */
+
+.about-hero {
+  position: relative;
+  height: 75vh;
+  overflow: hidden;
+}
+
+.about-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  animation: slowZoom 20s infinite alternate ease-in-out;
+}
+
+.about-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-top: 22vh;
+  color: #fff;
+  max-width: 800px;
+  margin: auto;
+}
+
+.about-hero-content h1,
+.about-hero-content p {
+  color: #fff;
+}
+
+/* GOLD ACCENT LINE */
+
+.gold-line {
+  width: 70px;
+  height: 2px;
+  margin: 1rem auto 2rem;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: floatLine 3s infinite ease-in-out;
+}
+
+@keyframes floatLine {
+  0%,100% { transform: translateX(0); }
+  50% { transform: translateX(18px); }
+}
+
+/* GRID LAYOUT */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-grid.reverse {
+  direction: rtl;
+}
+
+.about-grid.reverse > * {
+  direction: ltr;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.08);
+}
+
+/* PARALLAX */
+
+.parallax-about {
+  background-attachment: fixed;
+  background-image: linear-gradient(rgba(250,247,242,0.92), rgba(250,247,242,0.92)),
+    url("../../assets/afam-wedding-2.jpeg");
+  background-size: cover;
+}
+
+/* VALUES */
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.value-card {
+  background: var(--surface);
+  padding: 2.5rem;
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+  transition: all 0.4s ease;
+}
+
+/* LUXURY HOVER */
+
+.luxury-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+}
+
+/* MISSION TEXT */
+
+.mission-text {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.1rem;
+}
+
+/* CTA */
+
+.about-cta {
+  text-align: center;
+}
+
+/* SHIMMER */
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.6),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  100% { left: 200%; }
+}
+
+.large {
+  padding: 1.1rem 3rem;
+  font-size: 1rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-hero {
+    height: 60vh;
+  }
+}
