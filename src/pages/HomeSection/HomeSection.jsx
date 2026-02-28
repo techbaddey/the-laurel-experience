@@ -17,6 +17,23 @@ import proposal from "../../assets/proposal.jpeg";
 
 import "./HomeSection.css";
 
+
+  const Reveal = ({ children }) => {
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true });
+
+    return (
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 60 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1 }}
+      >
+        {children}
+      </motion.div>
+    );
+  };
+
 export default function HomeSection() {
 
   /* ================= HERO SLIDER ================= */
@@ -70,21 +87,6 @@ export default function HomeSection() {
 
   /* ================= REVEAL ================= */
 
-  const Reveal = ({ children }) => {
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true });
-
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 60 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1 }}
-      >
-        {children}
-      </motion.div>
-    );
-  };
 
   return (
     <>
@@ -97,42 +99,58 @@ export default function HomeSection() {
       <main>
 
         {/* ================= HERO ================= */}
-        <section className="home-hero">
-          <div
-            className="hero-bg"
-            style={{ backgroundImage: `url(${heroImages[heroIndex]})` }}
-          />
+        {/* ================= HERO ================= */}
+<section className="home-hero">
+  {heroImages.map((img, index) => (
+    <div
+      key={index}
+      className={`hero-bg ${
+        index === heroIndex ? "active" : ""
+      }`}
+      style={{ backgroundImage: `url(${img})` }}
+    />
+  ))}
 
-          <div className="hero-overlay" />
+  <div className="hero-overlay" />
+  <div className="hero-gradient-overlay" />
 
-          <div className="hero-content">
-            <h1>The Laurel Experience</h1>
-            <div className="gold-line" />
-            <h2>
-              Creating unforgettable memories inspired by you, crafted by us 🦋
-            </h2>
-            <p>
-              At The Laurel Experience, we believe every event should feel
-              personal, intentional, and beautifully effortless...
-            </p>
+  <motion.div
+    className="hero-content"
+    initial={{ opacity: 0, y: 40 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1.2 }}
+  >
+    <h1 className="hero-title">The Laurel Experience</h1>
 
-            <div className="hero-cta">
-              <a href="/booking" className="btn-primary shimmer">
-                Book a Consultation
-              </a>
-              <a href="/works" className="btn-outline">
-                View Our Work
-              </a>
-            </div>
-          </div>
-        </section>
+    <div className="gold-line" />
+
+    <h2 className="hero-subtitle">
+      Creating unforgettable memories inspired by you, crafted by us 🦋
+    </h2>
+
+    <p className="hero-description">
+      At The Laurel Experience, we believe every event should feel
+      personal, intentional, and beautifully effortless.
+      We curate experiences that leave lasting impressions.
+    </p>
+
+    <div className="hero-cta">
+      <a href="/booking" className="btn-primary shimmer">
+        Book a Consultation
+      </a>
+      <a href="/works" className="btn-outline">
+        View Our Work
+      </a>
+    </div>
+  </motion.div>
+</section>
 
         {/* ================= WHAT WE DO ================= */}
         <section className="section parallax-section">
           <Reveal>
             <div className="container center">
               <h2>Event Planning Made Seamless</h2>
-              <p>
+              <p className="center">
                 At The Laurel Experience, our favourite thing to do is to make love happen ❤️
                 We specialize in turning ideas into meaningful experiences...
               </p>

@@ -42,6 +42,15 @@
   color: #fff;
 }
 
+.hero-cta {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
 /* GOLD LINE ANIMATION */
 
 .gold-line {
@@ -185,4 +194,18 @@
 
 .center {
   text-align: center;
+  margin: 0 auto;
+} 
+
+@media (max-width: 768px) {
+  .hero-cta {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
 }
