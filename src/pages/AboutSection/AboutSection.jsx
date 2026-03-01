@@ -8,6 +8,11 @@ import afamwedding from "../../assets/afam-wedding-3.jpeg";
 import alaynnaprewedding from "../../assets/alaynna-prewedding.jpeg";
 import proposal from "../../assets/proposal.jpeg";
 
+import LargeImg1 from "../../assets/afam-wedding-3.jpeg";
+import LargeImg2 from "../../assets/alaynna-prewedding.jpeg";
+import SmallImg1 from "../../assets/dami-prewedding.jpeg";
+import SmallImg2 from "../../assets/firedami-birthday.jpeg";
+
 import "./AboutSection.css";
 
 export default function AboutSection() {
@@ -68,12 +73,35 @@ export default function AboutSection() {
                 </p>
                 <p>
                   We approach each event with care, professionalism, and heart—treating every detail as important and every client as unique.
+                </p
+                ><h2>Our Approach</h2>
+                <p>
+                  We walk alongside you — listening, guiding, and executing — so you can
+                  fully enjoy your special moment while we handle the details behind the scenes.
+                </p>
+                <p>
+                  From the first consultation to the final farewell, we ensure your
+                  experience feels calm, seamless, and beautifully intentional.
                 </p>
               </div>
 
-              <div className="about-image luxury-hover">
-                <img src={alaynnaprewedding} alt="Elegant event" />
-              </div>
+             <div className="hero-grid">
+            <div className="grid-item item-one tall">
+              <img src={LargeImg1} alt="" />
+            </div>
+
+            <div className="grid-item item-two small">
+              <img src={SmallImg1} alt="" />
+            </div>
+
+            <div className="grid-item item-three tall">
+              <img src={LargeImg2} alt="" />
+            </div>
+            
+            <div className="grid-item item-four small">
+              <img src={SmallImg2} alt="" />
+            </div>
+          </div>
             </div>
           </Reveal>
         </section>
@@ -124,31 +152,6 @@ export default function AboutSection() {
                 </div>
 
               </div>
-            </div>
-          </Reveal>
-        </section>
-
-        {/* ================= APPROACH ================= */}
-        <section className="section alt">
-          <Reveal>
-            <div className="container about-grid reverse">
-
-              <div className="about-image luxury-hover">
-                <img src={proposal} alt="Luxury proposal setup" />
-              </div>
-
-              <div className="about-text">
-                <h2>Our Approach</h2>
-                <p>
-                  We walk alongside you — listening, guiding, and executing — so you can
-                  fully enjoy your special moment while we handle the details behind the scenes.
-                </p>
-                <p>
-                  From the first consultation to the final farewell, we ensure your
-                  experience feels calm, seamless, and beautifully intentional.
-                </p>
-              </div>
-
             </div>
           </Reveal>
         </section>
