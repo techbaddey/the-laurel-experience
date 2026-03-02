@@ -15,6 +15,7 @@ import ServicesSection from "./pages/ServicesSection/ServicesSection";
 import ContactSection from "./pages/ContactSection/ContactSection";
 import WorksSection from "./pages/WorksSection/WorksSection";
 import BookingSection from "./pages/BookingSection/BookingSection";
+import EventDetails from "./pages/EventDetails/EventDetails";
 
 const App = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/about" element={<PageTransition><AboutSection /></PageTransition>} />
           <Route path="/services" element={<PageTransition><ServicesSection /></PageTransition>} />
           <Route path="/works" element={<PageTransition><WorksSection /></PageTransition>} />
+          <Route path="/works/:slug" element={<PageTransition><EventDetails /></PageTransition>} />
           <Route path="/booking" element={<PageTransition><BookingSection /></PageTransition>} />
           <Route path="/contact" element={<PageTransition><ContactSection /></PageTransition>} />
         </Routes>

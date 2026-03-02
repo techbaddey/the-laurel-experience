@@ -69,21 +69,6 @@ export default function BookingSection() {
           </ul>
         </section>
 
-        {/* SCHEDULER */}
-        <section className="booking-scheduler">
-          <h2>Schedule Your Consultation</h2>
-          <p>Choose a time that works best for you.</p>
-
-          {/* Replace iframe src with your Calendly or Acuity link */}
-          <div className="scheduler-frame">
-            <iframe
-              src="https://calendly.com/"
-              title="Consultation Scheduler"
-              frameBorder="0"
-            />
-          </div>
-        </section>
-
         {/* FORM */}
         <section className="booking-form-wrap">
           <motion.form

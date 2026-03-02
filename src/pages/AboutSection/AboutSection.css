@@ -218,6 +218,9 @@
   .hero-grid {
     grid-auto-rows: 160px;
   }
+  .about-hero{
+height:42vh;
+  }
 }
 
 .value-icon{

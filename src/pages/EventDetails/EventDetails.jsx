@@ -1,12 +1,11 @@
-// src/pages/WorksSection/WorksSection.jsx
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
+// src/pages/WorksSection/EventDetail.jsx
+import React, { useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { FaCameraRetro, FaRing, FaBirthdayCake, FaBriefcase } from "react-icons/fa";
-
+import { motion } from "framer-motion";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import { FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import afamwedding from "../../assets/afam-wedding.jpeg";
 import afamwedding2 from "../../assets/afam-wedding-2.jpeg";
@@ -18,23 +17,11 @@ import funmikebooklaunch from "../../assets/funmike-booklaunch.jpeg";
 import laurabirthday from "../../assets/laura-birthday.jpeg";
 import proposal from "../../assets/proposal.jpeg";
 
-import "./WorksSection.css";
+import "./EventDetails.css";
 
-// ----------------- dummy data -----------------
-const imagesPool = [
-  afamwedding,
-  afamwedding2,
-  afamwedding3,
-  alaynnaprewedding,
-  damiprewedding,
-  firedamibirthday,
-  funmikebooklaunch,
-  laurabirthday,
-  proposal
-];
-
+// same dataset as WorksSection (keep in sync)
 const worksData = [
-  // weddings
+  // (copy same objects as in WorksSection.jsx)
   {
     slug: "joy-and-lanre",
     title: "Joy & Lanre",
@@ -90,7 +77,6 @@ const worksData = [
     images: [afamwedding2, proposal]
   },
 
-  // birthdays
   {
     slug: "laura-birthday",
     title: "Laura — Birthday",
@@ -119,7 +105,6 @@ const worksData = [
     images: [firedamibirthday, afamwedding3]
   },
 
-  // corporate
   {
     slug: "gwr-corporate",
     title: "GWR Corporate",
@@ -140,107 +125,118 @@ const worksData = [
   }
 ];
 
-// group by category for preview
-const groupByType = (arr) =>
-  arr.reduce((acc, item) => {
-    acc[item.type] = acc[item.type] || [];
-    acc[item.type].push(item);
-    return acc;
-  }, {});
+export default function EventDetail() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
 
-// ----------------- small Reveal wrapper -----------------
-const Reveal = ({ children }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.15 });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8 }}
-    >
-      {children}
-    </motion.div>
-  );
-};
+  const event = worksData.find((w) => w.slug === slug);
 
-// ----------------- WorksSection -----------------
-export default function WorksSection() {
-  const grouped = groupByType(worksData);
+  // fallback if not found
+  if (!event) {
+    return (
+      <>
+        <Helmet>
+          <title>Not found | The Laurel Experience</title>
+        </Helmet>
+        <Navbar />
+        <main className="section">
+          <div className="container center">
+            <h2>Event Not Found</h2>
+            <p>We couldn't find that event. <Link to="/works">Back to Works</Link></p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+  const images = event.images;
+
+  const openLightbox = (i) => {
+    setIndex(i);
+    setLightboxOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = "";
+  };
+
+  const prev = () => setIndex((p) => (p === 0 ? images.length - 1 : p - 1));
+  const next = () => setIndex((p) => (p === images.length - 1 ? 0 : p + 1));
 
   return (
     <>
       <Helmet>
-        <title>Works | The Laurel Experience</title>
+        <title>{event.title} | The Laurel Experience</title>
       </Helmet>
 
       <Navbar />
 
       <main>
-        {/* HERO */}
-        <section className="works-hero">
+        <section className="works-hero small-hero">
           <div className="works-overlay">
-            {/* bubbles */}
-            <span className="bubble" />
-            <span className="bubble" />
             <span className="bubble" />
             <span className="bubble" />
           </div>
 
           <div className="works-hero-content">
-            <h2>Our Work</h2>
+            <h1>{event.title}</h1>
             <div className="gold-line" />
-            <p>
-              A thoughtfully curated collection of events we’ve planned and coordinated.
-            </p>
+            <p className="muted">{event.type} • {event.location} • {event.year}</p>
           </div>
         </section>
 
-        {/* GALLERY PREVIEWS */}
         <section className="section">
           <div className="container">
-            <Reveal>
-              <h2 className="center mb-2">Gallery Sections Preview</h2>
-              <p className="center muted">Click any card to view the full story & gallery</p>
-            </Reveal>
+            <div className="event-intro">
+              <div className="event-meta">
+                <h3>{event.title}</h3>
+                <p className="muted">{event.location} — {event.year}</p>
+                <p>{event.brief}</p>
+              </div>
 
-            {/* categories */}
-            <div className="gallery-groups">
-              {Object.entries(grouped).map(([type, items]) => (
-                <div className="group" key={type}>
-                  <div className="group-header">
-                    <h3>{type}</h3>
-                    <div className="group-meta">
-                      <span>{items.length} previews</span>
-                    </div>
+              <div className="event-gallery-grid">
+                {images.map((src, i) => (
+                  <div key={i} className="thumb" onClick={() => openLightbox(i)}>
+                    <img src={src} alt={`${event.title} ${i+1}`} />
                   </div>
-
-                  <div className="preview-grid">
-                    {items.map((item) => (
-                      <Reveal key={item.slug}>
-                        <Link to={`/works/${item.slug}`} className="preview-card">
-                          <div className="preview-media">
-                            <img src={item.images[0] || imagesPool[0]} alt={item.title} />
-                            <div className="preview-caption">
-                              <div className="caption-left">
-                                <strong>{item.title}</strong>
-                                <span className="muted">{item.type}</span>
-                              </div>
-                              <div className="caption-right">
-                                <span className="muted">{item.location}</span>
-                                <span className="muted">{item.year}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                      </Reveal>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
+
+        {/* Lightbox */}
+        {lightboxOpen && (
+          <div className="lightbox-overlay" onClick={closeLightbox}>
+            <motion.div
+              className="lightbox-inner"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="lightbox-close" onClick={closeLightbox}><FaTimes /></button>
+
+              <div className="lightbox-media">
+                <button className="lb-nav left" onClick={prev}><FaChevronLeft /></button>
+                <img src={images[index]} alt={`img ${index+1}`} />
+                <button className="lb-nav right" onClick={next}><FaChevronRight /></button>
+              </div>
+
+              <div className="lightbox-info">
+                <div>{index + 1} of {images.length}</div>
+                <div>{event.title} — {event.location} • {event.year}</div>
+              </div>
+
+            </motion.div>
+          </div>
+        ) }
+
       </main>
 
       <Footer />
