@@ -3,12 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import {
-  FaWhatsapp,
-  FaEnvelope,
-  FaInstagram,
-  FaCheckCircle,
-} from "react-icons/fa";
+import { FaWhatsapp, FaEnvelope, FaInstagram, FaCheckCircle } from "react-icons/fa";
 import "./ContactSection.css";
 
 /* Laurel Contact Info */
@@ -31,22 +26,39 @@ export default function ContactSection() {
   const [focused, setFocused] = useState(null);
   const [isSending, setIsSending] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSending(true);
+    setError("");
 
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formType: "contact", payload: form }),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) throw new Error(json?.error || "Failed to send");
+
       setIsSending(false);
       setSuccess(true);
       setForm(initialForm);
-      setTimeout(() => setSuccess(false), 5000);
-    }, 1200);
+
+      setTimeout(() => setSuccess(false), 6000);
+    } catch (err) {
+      setIsSending(false);
+      setError(err.message || "An error occurred");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -62,13 +74,13 @@ export default function ContactSection() {
       <Navbar />
 
       <main className="contact-page">
-        {/* ================= HERO ================= */}
+        {/* HERO */}
         <section className="contact-hero">
           <motion.div
             className="hero-inner"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.25, 0.8, 0.25, 1] }}
+            transition={{ duration: 0.7 }}
           >
             <h1>Get in Touch</h1>
             <p>
@@ -78,7 +90,7 @@ export default function ContactSection() {
           </motion.div>
         </section>
 
-        {/* ================= CONTACT INFO ================= */}
+        {/* CONTACT INFO */}
         <section className="contact-info">
           <div className="info-grid">
             <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noreferrer">
@@ -98,7 +110,7 @@ export default function ContactSection() {
           </div>
         </section>
 
-        {/* ================= FORM ================= */}
+        {/* FORM */}
         <section className="contact-form-section">
           <motion.form
             className="laurel-form"
@@ -173,6 +185,8 @@ export default function ContactSection() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {error && <div className="error-message">{error}</div>}
           </motion.form>
         </section>
       </main>

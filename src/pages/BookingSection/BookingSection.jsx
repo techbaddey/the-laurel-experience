@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import "./BookingSection.css";
+import "../ContactSection/ContactSection.css"; // shared styles for both pages
 
 const initialForm = {
   email: "",
@@ -20,16 +20,36 @@ export default function BookingSection() {
   const [form, setForm] = useState(initialForm);
   const [focused, setFocused] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setForm(initialForm);
-    setTimeout(() => setSubmitted(false), 5000);
+    setIsSending(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formType: "booking", payload: form }),
+      });
+
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || "Failed to send");
+
+      setSubmitted(true);
+      setForm(initialForm);
+      setTimeout(() => setSubmitted(false), 6000);
+    } catch (err) {
+      setError(err.message || "An error occurred");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -156,8 +176,8 @@ export default function BookingSection() {
               />
             </div>
 
-            <button className="btn-gold" type="submit">
-              Submit Consultation Request
+            <button className="btn-gold" type="submit" disabled={isSending}>
+              {isSending ? "Sending…" : "Submit Consultation Request"}
             </button>
 
             <AnimatePresence>
@@ -172,6 +192,8 @@ export default function BookingSection() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {error && <div className="error-message">{error}</div>}
           </motion.form>
         </section>
       </main>
