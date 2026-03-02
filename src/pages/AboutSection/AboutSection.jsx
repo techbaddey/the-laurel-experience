@@ -3,6 +3,9 @@ import { useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import { FaGem } from "react-icons/fa";
+import { FaHandshake } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 
 import afamwedding from "../../assets/afam-wedding-3.jpeg";
 import alaynnaprewedding from "../../assets/alaynna-prewedding.jpeg";
@@ -45,14 +48,17 @@ export default function AboutSection() {
 
         {/* ================= HERO ================= */}
         <section className="about-hero">
-          <div
-            className="about-hero-bg"
-            style={{ backgroundImage: `url(${afamwedding})` }}
-          />
-          <div className="about-overlay" />
+          <div className="about-overlay">
+  <span className="bubble"></span>
+  <span className="bubble"></span>
+  <span className="bubble"></span>
+  <span className="bubble"></span>
+  <span className="bubble"></span>
+  <span className="bubble"></span>
+</div>
 
           <div className="about-hero-content">
-            <h1>About The Laurel Experience</h1>
+            <h2>About TLE</h2>
             <div className="gold-line" />
             <p>
               Where passion meets precision — and moments become memories.
@@ -67,14 +73,15 @@ export default function AboutSection() {
               <div className="about-text">
                 <h2>Our Story</h2>
                 <p>
-                  The Laurel Experience was born from a deep passion for meaningful moments and beautifully executed celebrations.
+                  The Laurel Experience (TLE) was born from a deep passion for meaningful moments and beautifully executed celebrations.
                   We understand that events are more than just gatherings—they are milestones filled with emotion, intention, and love.
                   That understanding guides every decision we make.
                 </p>
                 <p>
                   We approach each event with care, professionalism, and heart—treating every detail as important and every client as unique.
-                </p
-                ><h2>Our Approach</h2>
+                </p>
+
+                <h2 className="mt-5">Our Approach</h2>
                 <p>
                   We walk alongside you — listening, guiding, and executing — so you can
                   fully enjoy your special moment while we handle the details behind the scenes.
@@ -125,33 +132,50 @@ export default function AboutSection() {
             <div className="container">
               <h2 className="center">Our Values</h2>
 
-              <div className="values-grid">
+             <div className="values-grid">
 
-                <div className="value-card luxury-hover">
-                  <h3>Excellence</h3>
-                  <p>
-                    We deliver every event with the highest standards, paying attention
-                    to the details that transform moments into unforgettable experiences.
-                  </p>
-                </div>
+  <div className="value-card luxury-hover">
+    <div className="value-icon shimmer">
+      <FaGem />
+    </div>
 
-                <div className="value-card luxury-hover">
-                  <h3>Integrity</h3>
-                  <p>
-                    We operate with honesty, transparency, and accountability in every
-                    relationship and decision we make.
-                  </p>
-                </div>
+    <h3>Excellence</h3>
 
-                <div className="value-card luxury-hover">
-                  <h3>Client-Centered Service</h3>
-                  <p>
-                    Our clients are at the heart of everything we do. We listen deeply,
-                    communicate clearly, and personalize every experience.
-                  </p>
-                </div>
+    <p>
+      We deliver every event with the highest standards, paying attention
+      to the details that transform moments into unforgettable experiences.
+    </p>
+  </div>
 
-              </div>
+
+  <div className="value-card luxury-hover">
+    <div className="value-icon shimmer">
+      <FaHandshake />
+    </div>
+
+    <h3>Integrity</h3>
+
+    <p>
+      We operate with honesty, transparency, and accountability in every
+      relationship and decision we make.
+    </p>
+  </div>
+
+
+  <div className="value-card luxury-hover">
+    <div className="value-icon shimmer">
+      <FaUsers />
+    </div>
+
+    <h3>Client-Centered Service</h3>
+
+    <p>
+      Our clients are at the heart of everything we do. We listen deeply,
+      communicate clearly, and personalize every experience.
+    </p>
+  </div>
+
+</div>
             </div>
           </Reveal>
         </section>

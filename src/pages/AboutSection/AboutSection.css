@@ -2,7 +2,7 @@
 
 .about-hero {
   position: relative;
-  height: 75vh;
+  height: 48vh;
   overflow: hidden;
 }
 
@@ -17,22 +17,31 @@
 .about-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+
+  background: linear-gradient(
+    135deg,
+    rgba(201,169,106,0.55),
+    rgba(25,25,25,0.65)
+  );
+
+  overflow: hidden;
 }
 
 .about-hero-content {
   position: relative;
   z-index: 2;
   text-align: center;
-  padding-top: 22vh;
+  padding-top: 17vh;
   color: #fff;
   max-width: 800px;
-  margin: auto;
+  margin: 0 auto;
 }
 
-.about-hero-content h1,
+.about-hero-content h2,
 .about-hero-content p {
   color: #fff;
+  text-align: center;
+  margin: 0 auto;
 }
 
 /* GOLD ACCENT LINE */
@@ -72,15 +81,6 @@
   border-radius: 20px;
   object-fit: cover;
   box-shadow: 0 30px 80px rgba(0,0,0,0.08);
-}
-
-/* PARALLAX */
-
-.parallax-about {
-  background-attachment: fixed;
-  background-image: linear-gradient(rgba(250,247,242,0.92), rgba(250,247,242,0.92)),
-    url("../../assets/afam-wedding-2.jpeg");
-  background-size: cover;
 }
 
 /* VALUES */
@@ -219,3 +219,95 @@
     grid-auto-rows: 160px;
   }
 }
+
+.value-icon{
+
+  width:60px;
+  height:60px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+  color:white;
+  font-size:22px;
+
+  margin-bottom:18px;
+
+  position:relative;
+  overflow:hidden;
+}
+
+/* FLOATING BUBBLES */
+
+.bubble {
+  position: absolute;
+  bottom: -120px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(2px);
+
+  animation: floatBubble 18s infinite ease-in;
+}
+
+.bubble:nth-child(1){
+  left:10%;
+  animation-duration:18s;
+}
+
+.bubble:nth-child(2){
+  left:25%;
+  width:25px;
+  height:25px;
+  animation-duration:14s;
+}
+
+.bubble:nth-child(3){
+  left:45%;
+  animation-duration:20s;
+}
+
+.bubble:nth-child(4){
+  left:60%;
+  width:28px;
+  height:28px;
+  animation-duration:16s;
+}
+
+.bubble:nth-child(5){
+  left:75%;
+  animation-duration:22s;
+}
+
+.bubble:nth-child(6){
+  left:90%;
+  width:22px;
+  height:22px;
+  animation-duration:15s;
+}
+
+@keyframes floatBubble {
+
+  0%{
+    transform:translateY(0) scale(1);
+    opacity:0;
+  }
+
+  20%{
+    opacity:.6;
+  }
+
+  100%{
+    transform:translateY(-900px) scale(1.4);
+    opacity:0;
+  }
+
+}
+

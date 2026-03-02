@@ -7,7 +7,7 @@ import { AnimatePresence } from "framer-motion";
 import PageTransition from "./components/PageTransition";
 
 import Navbar from "./components/Navbar/Navbar";
-import ContactReveal from "./components/ContactReveal/ContactReveal";
+import ContactReveal from "./components/ContactReveal/ContactReveal"; 
 
 import HomeSection from "./pages/HomeSection/HomeSection";
 import AboutSection from "./pages/AboutSection/AboutSection";
