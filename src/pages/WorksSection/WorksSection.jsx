@@ -11,12 +11,17 @@ import Footer from "../../components/Footer/Footer";
 import afamwedding from "../../assets/afam-wedding.jpeg";
 import afamwedding2 from "../../assets/afam-wedding-2.jpeg";
 import afamwedding3 from "../../assets/afam-wedding-3.jpeg";
+import afamprewedding from "../../assets/afam-prewedding.jpeg";
 import alaynnaprewedding from "../../assets/alaynna-prewedding.jpeg";
 import damiprewedding from "../../assets/dami-prewedding.jpeg";
 import firedamibirthday from "../../assets/firedami-birthday.jpeg";
 import funmikebooklaunch from "../../assets/funmike-booklaunch.jpeg";
 import laurabirthday from "../../assets/laura-birthday.jpeg";
 import proposal from "../../assets/proposal.jpeg";
+import GwrEvent from "../../assets/gwr-event.png";
+import joshuabirthday from "../../assets/joshua-birthday.jpeg";
+import ronkeprewedding from "../../assets/ronke-prewedding.jpeg";
+import olaprewedding from "../../assets/ola-prewedding-1.jpeg";
 
 import "./WorksSection.css";
 
@@ -30,7 +35,13 @@ const imagesPool = [
   firedamibirthday,
   funmikebooklaunch,
   laurabirthday,
-  proposal
+  proposal,
+  GwrEvent,
+  joshuabirthday,
+  ronkeprewedding,
+  olaprewedding,
+  afamprewedding,
+
 ];
 
 const worksData = [
@@ -40,31 +51,31 @@ const worksData = [
     title: "Joy & Lanre",
     type: "Weddings",
     location: "Lagos, Nigeria",
-    year: 2023,
+    year: 2025,
     brief: "A joyful day with an intimate ceremony and candlelight reception.",
-    images: [afamwedding3, afamwedding2, afamwedding, proposal]
+    images: [olaprewedding, afamwedding2, afamwedding, proposal]
   },
   {
     slug: "o-and-o",
-    title: "O & O",
+    title: "Omolola & Ooluwdami",
     type: "Weddings",
     location: "Abuja, Nigeria",
-    year: 2022,
+    year: 2025,
     brief: "Elegant black-tie celebration with a modern twist.",
-    images: [alaynnaprewedding, afamwedding2, damiprewedding]
+    images: [damiprewedding, afamwedding2, damiprewedding]
   },
   {
     slug: "tobi-and-afam",
     title: "Tobi & Afam",
     type: "Weddings",
-    location: "Ibadan, Nigeria",
-    year: 2021,
+    location: "Lagos, Nigeria",
+    year: 2025,
     brief: "Colorful celebration celebrating family and tradition.",
-    images: [afamwedding, afamwedding3]
+    images: [afamwedding, afamwedding3, afamprewedding, afamwedding2]
   },
   {
     slug: "alaynna-and-x",
-    title: "Alaynna & X",
+    title: "Alaynna & Wisdom",
     type: "Weddings",
     location: "Lagos, Nigeria",
     year: 2024,
@@ -72,22 +83,13 @@ const worksData = [
     images: [alaynnaprewedding, damiprewedding]
   },
   {
-    slug: "dami-and-x",
-    title: "Dami & X",
-    type: "Weddings",
-    location: "Lagos, Nigeria",
-    year: 2020,
-    brief: "Sunset ceremony with golden light and warm tones.",
-    images: [damiprewedding, firedamibirthday]
-  },
-  {
     slug: "victor-and-ronke",
     title: "Victor & Ronke",
     type: "Weddings",
     location: "Port Harcourt, Nigeria",
-    year: 2019,
+    year: 2025,
     brief: "Large family wedding with heartfelt speeches.",
-    images: [afamwedding2, proposal]
+    images: [ronkeprewedding, proposal]
   },
 
   // birthdays
@@ -107,11 +109,11 @@ const worksData = [
     location: "Abuja, Nigeria",
     year: 2022,
     brief: "Lively evening with themed decorations and music.",
-    images: [firedamibirthday, laurabirthday]
+    images: [joshuabirthday, laurabirthday]
   },
   {
     slug: "dami-birthday",
-    title: "Dami — Birthday",
+    title: "Oluwaforedami — Birthday",
     type: "Birthday",
     location: "Lagos, Nigeria",
     year: 2021,
@@ -121,17 +123,17 @@ const worksData = [
 
   // corporate
   {
-    slug: "gwr-corporate",
-    title: "GWR Corporate",
+    slug: "gwr-event",
+    title: "GWR Event",
     type: "Corporate",
     location: "Lagos, Nigeria",
     year: 2024,
     brief: "A polished corporate launch with keynote speakers.",
-    images: [funmikebooklaunch, afamwedding2]
+    images: [GwrEvent, afamwedding2]
   },
   {
     slug: "funmike-booklaunch",
-    title: "FunMike — Book Launch",
+    title: "Funmike — Book Launch",
     type: "Corporate",
     location: "Lagos, Nigeria",
     year: 2023,
@@ -188,7 +190,7 @@ export default function WorksSection() {
           </div>
 
           <div className="works-hero-content">
-            <h2>Our Work</h2>
+            <h1>Our Work</h1>
             <div className="gold-line" />
             <p>
               A thoughtfully curated collection of events we’ve planned and coordinated.

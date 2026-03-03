@@ -1,204 +1,263 @@
-import { useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { motion, AnimatePresence } from "framer-motion";
+
+import { FaCalendarCheck, FaQuestionCircle } from "react-icons/fa";
+
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import "../ContactSection/ContactSection.css"; // shared styles for both pages
 
-const initialForm = {
-  email: "",
-  name: "",
-  eventType: "",
-  days: "",
-  guests: "",
-  location: "",
-  date: "",
-  notes: "",
-};
+import "./BookingSection.css";
 
 export default function BookingSection() {
-  const [form, setForm] = useState(initialForm);
-  const [focused, setFocused] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [isSending, setIsSending] = useState(false);
-  const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSending(true);
-    setError("");
-
-    try {
-      const res = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ formType: "booking", payload: form }),
-      });
-
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.error || "Failed to send");
-
-      setSubmitted(true);
-      setForm(initialForm);
-      setTimeout(() => setSubmitted(false), 6000);
-    } catch (err) {
-      setError(err.message || "An error occurred");
-    } finally {
-      setIsSending(false);
-    }
-  };
+const Reveal = ({ children }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
 
   return (
-    <>
-      <Helmet>
-        <title>Consultation & Booking | The Laurel Experience</title>
-        <meta
-          name="description"
-          content="Book a consultation with The Laurel Experience. Let us understand your vision and curate something extraordinary."
-        />
-      </Helmet>
-
-      <Navbar />
-
-      <main className="booking-page">
-        {/* HERO */}
-        <section className="booking-hero">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <h1>Book a Consultation</h1>
-            <p>
-              Your journey with <strong>The Laurel Experience</strong> begins here.
-              This is where we listen, align, and intentionally create.
-            </p>
-          </motion.div>
-        </section>
-
-        {/* PROCESS */}
-        <section className="booking-process">
-          <ul>
-            <li>We take time to understand your vision & expectations</li>
-            <li>We discuss your event needs, goals, and budget</li>
-            <li>We explore how our services best support your experience</li>
-          </ul>
-        </section>
-
-        {/* FORM */}
-        <section className="booking-form-wrap">
-          <motion.form
-            className="laurel-form"
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2>Initial Consultation Form</h2>
-            <p className="form-intro">
-              This form helps us prepare thoughtfully for your consultation.
-            </p>
-
-            <div className="grid-two">
-              {[
-                { name: "email", label: "Email *", type: "email" },
-                { name: "name", label: "Client’s Name *", type: "text" },
-              ].map((field) => (
-                <div
-                  key={field.name}
-                  className={`form-group ${
-                    focused === field.name || form[field.name] ? "active" : ""
-                  }`}
-                >
-                  <label>{field.label}</label>
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    value={form[field.name]}
-                    onChange={handleChange}
-                    onFocus={() => setFocused(field.name)}
-                    onBlur={() => setFocused(null)}
-                    required
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="grid-two">
-              {[
-                { name: "eventType", label: "Type of Event *" },
-                { name: "days", label: "Number of Event Days *" },
-                { name: "guests", label: "Guest Capacity *" },
-                { name: "location", label: "Event Location *" },
-              ].map((field) => (
-                <div
-                  key={field.name}
-                  className={`form-group ${
-                    focused === field.name || form[field.name] ? "active" : ""
-                  }`}
-                >
-                  <label>{field.label}</label>
-                  <input
-                    type="text"
-                    name={field.name}
-                    value={form[field.name]}
-                    onChange={handleChange}
-                    onFocus={() => setFocused(field.name)}
-                    onBlur={() => setFocused(null)}
-                    required
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="form-group active">
-              <label>Event Date *</label>
-              <input
-                type="date"
-                name="date"
-                value={form.date}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-group textarea">
-              <label>Additional Comments or Information</label>
-              <textarea
-                rows="4"
-                name="notes"
-                value={form.notes}
-                onChange={handleChange}
-              />
-            </div>
-
-            <button className="btn-gold" type="submit" disabled={isSending}>
-              {isSending ? "Sending…" : "Submit Consultation Request"}
-            </button>
-
-            <AnimatePresence>
-              {submitted && (
-                <motion.div
-                  className="success-message"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                >
-                  Thank you for trusting The Laurel Experience. We’ll be in touch shortly ✨
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {error && <div className="error-message">{error}</div>}
-          </motion.form>
-        </section>
-      </main>
-
-      <Footer />
-    </>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 70 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 1 }}
+    >
+      {children}
+    </motion.div>
   );
+};
+
+const [submitted, setSubmitted] = useState(false);
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  setSubmitted(true);
+};
+
+return (
+<>
+<Helmet>
+<title>Booking | The Laurel Experience</title>
+</Helmet>
+
+<Navbar />
+
+<main>
+
+{/* HERO */}
+
+<section className="booking-hero">
+
+<div className="booking-overlay" />
+
+<div className="bubble-bg">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<div className="booking-hero-content">
+
+<h1>Booking</h1>
+
+<div className="gold-line" />
+
+<p>Your journey with The Laurel Experience begins here.</p>
+
+</div>
+
+</section>
+
+{/* INTRO */}
+
+<section className="section">
+
+<Reveal>
+
+<div className="container center booking-intro">
+
+<h2>Book a Consultation</h2>
+
+<p>
+During your consultation, we take time to understand your vision, discuss your
+event goals, and explore how our services can support you.
+</p>
+
+<div className="consult-grid">
+
+<div className="consult-card">
+<FaCalendarCheck />
+<p>Understand your vision and expectations</p>
+</div>
+
+<div className="consult-card">
+<FaCalendarCheck />
+<p>Discuss event needs, goals, and budget</p>
+</div>
+
+<div className="consult-card">
+<FaCalendarCheck />
+<p>Explore how our services can support you</p>
+</div>
+
+</div>
+
+</div>
+
+</Reveal>
+
+</section>
+
+{/* FORM */}
+
+<section className="section alt">
+
+<Reveal>
+
+<div className="container booking-form-container">
+
+<h2 className="center">Initial Consultation Form</h2>
+
+<p className="form-intro">
+This form helps us gather important details about your event so we can prepare
+for a meaningful consultation.
+</p>
+
+{submitted ? (
+
+<div className="success-message">
+
+<h3>Thank you for trusting The Laurel Experience.</h3>
+
+<p>We'll be in touch shortly.</p>
+
+</div>
+
+) : (
+
+<form className="booking-form" onSubmit={handleSubmit}>
+
+<input type="text" placeholder="Client Name *" required />
+
+<input type="email" placeholder="Email *" required />
+
+<select required>
+
+<option value="">Type of Event *</option>
+
+<option>Wedding</option>
+
+<option>Birthday</option>
+
+<option>Corporate</option>
+
+<option>Proposal</option>
+
+<option>Other</option>
+
+</select>
+
+<input type="number" placeholder="Number of Event Days *" required />
+
+<input type="number" placeholder="Guest Capacity *" required />
+
+<input type="text" placeholder="Event Location *" required />
+
+<input type="date" required />
+
+<textarea placeholder="Additional Comments or Information"></textarea>
+
+<button className="btn-primary shimmer large">
+Submit Consultation Request
+</button>
+
+</form>
+
+)}
+
+</div>
+
+</Reveal>
+
+</section>
+
+{/* FAQ */}
+
+<section className="section">
+
+<Reveal>
+
+<div className="container faq-section">
+
+<h2 className="center">Frequently Asked Questions</h2>
+
+<div className="faq-grid">
+
+<div className="faq-card">
+
+<FaQuestionCircle />
+
+<h3>How far in advance should I book?</h3>
+
+<p>
+We recommend booking as early as possible, especially for weddings
+and large events.
+</p>
+
+</div>
+
+<div className="faq-card">
+
+<FaQuestionCircle />
+
+<h3>Do you work with different budgets?</h3>
+
+<p>
+Yes. We meet you where you are and plan intentionally within your budget.
+</p>
+
+</div>
+
+<div className="faq-card">
+
+<FaQuestionCircle />
+
+<h3>Can I book only consultation or coordination?</h3>
+
+<p>
+Absolutely. Our services are flexible and designed to support your needs.
+</p>
+
+</div>
+
+<div className="faq-card">
+
+<FaQuestionCircle />
+
+<h3>Do you offer destination events?</h3>
+
+<p>
+Yes, destination and out-of-town events are available upon request.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</Reveal>
+
+</section>
+
+</main>
+
+<Footer />
+
+</>
+
+);
+
 }

@@ -9,12 +9,15 @@ import Footer from "../../components/Footer/Footer";
 
 import afamwedding from "../../assets/afam-wedding.jpeg";
 import afamwedding3 from "../../assets/afam-wedding-3.jpeg";
-import damiprewedding from "../../assets/dami-prewedding.jpeg";
+import damiprewedding from "../../assets/bridal-shower.png";
+import damiprewedding2 from "../../assets/dami-prewedding-2.jpeg";
 import funmikebooklaunch from "../../assets/funmike-booklaunch.jpeg";
-import joshuabirthday from "../../assets/joshua-birthday.jpeg";
+import funmikebooklaunch2 from "../../assets/funmike-booklaunch-2.jpeg";
+import joshuabirthday from "../../assets/gwr-event.png";
 import laurabirthday2 from "../../assets/laura-birthday-2.jpeg";
 import laurabirthday from "../../assets/laura-birthday.jpeg";
-import proposal from "../../assets/proposal.jpeg";
+import proposal from "../../assets/proposal-2.jpeg";
+
 
 import "./HomeSection.css";
 
@@ -40,10 +43,8 @@ export default function HomeSection() {
 
   const heroImages = [
     afamwedding3,
-    funmikebooklaunch,
-    joshuabirthday,
     laurabirthday2,
-    damiprewedding
+    damiprewedding2
   ];
 
   const [heroIndex, setHeroIndex] = useState(0);
